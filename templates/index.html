@@ -10,7 +10,12 @@
                 </div>
                 <input type="submit" class="btn btn-primary" value="Fetch and Save to CSV">
             </form>
-        
+        </section>
+
+        <section>
+            {% if fetched == True %}
+            <a href="../tweets.csv" download>
+            {% endif %}
         </section>
 {% endblock %}
   
