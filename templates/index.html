@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+        <section class="fetch">
+            <h3 class="mb-3">Fetch tweets and save to CSV</h3>
+            <form action="/" method="POST">
+                <div class="form-group">
+                    <input type="text" name ="hashtag" class="form-control username" placeholder="Twitter Hashtag">
+                    <small id="emailHelp" class="form-text text-muted">Maximum of 20 tweets can be fetched</small>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Fetch and Save to CSV">
+            </form>
+        
+        </section>
+{% endblock %}
+  

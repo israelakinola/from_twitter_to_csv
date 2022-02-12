@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+        <section class="fetch">
+            <h3 class="mb-3">Fetched tweets and save to CSV</h3>
+            <form action="">
+                <div class="form-group">
+                    <input type="text" name ="username" class="form-control username" placeholder="Twitter Username">
+                    <small id="emailHelp" class="form-text text-muted">Maximum of 50 tweets can be fetched</small>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Fetch">
+            </form>
+        
+        </section>
+{% endblock %}
+  
