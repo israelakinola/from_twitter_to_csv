@@ -26,11 +26,11 @@ def fetch(hashtag):
     api = tweepy.API(auth, wait_on_rate_limit=True)
 
     # Open/Create a file to append data
-    csvFile = open('tweets.csv', 'a')
+    csvFile = open('tweets.csv', 'w')
 
     #Use csv Writer
     csvWriter = csv.writer(csvFile)
-
+    csvWriter.writerow(['Date', 'Username & Tweets'])
     for tweet in tweepy.Cursor(api.search_tweets,q=hashtag,
                             lang="en").items(20):
                             csvWriter.writerow([tweet.created_at, tweet.text.encode('utf-8')])
