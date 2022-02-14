@@ -11,7 +11,7 @@ app = Flask(__name__)
 def index():
     if request.method == 'POST' and request.form['hashtag'] != '' :
         try:
-            fetch(request.form['hashtag'])
+            fetch(request.form['hashtag'], int(request.form['qty']))
         except:
             pass
         finally:
@@ -19,21 +19,21 @@ def index():
     return render_template("index.html")
 
 
-def fetch(hashtag):
+def fetch(hashtag, qty):
     # input your credentials here
     hashtag = hashtag
     auth = tweepy.OAuth2BearerHandler("AAAAAAAAAAAAAAAAAAAAAO2jZAEAAAAAeHKHp0U%2FLLbThLbR94yZREvpJ54%3Dc2S9jqbpzhQYhrGHa9w8cT8Td7YHMtlsVUmr8C1Tf4vXnoqEBD")
     api = tweepy.API(auth, wait_on_rate_limit=True)
 
-    # Open/Create a file to append data
+    # Open/Create a file to append dataß
     csvFile = open('tweets.csv', 'w')
 
     #Use csv Writer
     csvWriter = csv.writer(csvFile)
-    csvWriter.writerow(['Date', 'Username & Tweets'])
+    csvWriter.writerow(['Created at', 'Username', 'Tweets', 'Retweet Count' 'Likes'])
     for tweet in tweepy.Cursor(api.search_tweets,q=hashtag,
-                            lang="en").items(20):
-                            csvWriter.writerow([tweet.created_at, tweet.text.encode('utf-8')])
+                            lang="en").items(qty):
+                            csvWriter.writerow([tweet.created_at, tweet.user.screen_name, tweet.text.encode('utf-8'), tweet.retweet_count, tweet.favorite_count])
 
 @app.route('/download', methods=['GET', 'POST'])
 def download():    
