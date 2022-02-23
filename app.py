@@ -6,6 +6,8 @@ import csv
 
 app = Flask(__name__)
 
+### input your credentials here
+bearer_token = ''
 
 @app.route("/", methods=['POST', 'GET'])
 def index():
@@ -20,9 +22,7 @@ def index():
 
 
 def fetch(hashtag, qty):
-    # input your credentials here
-    hashtag = hashtag
-    auth = tweepy.OAuth2BearerHandler("AAAAAAAAAAAAAAAAAAAAAO2jZAEAAAAAeHKHp0U%2FLLbThLbR94yZREvpJ54%3Dc2S9jqbpzhQYhrGHa9w8cT8Td7YHMtlsVUmr8C1Tf4vXnoqEBD")
+    auth = tweepy.OAuth2BearerHandler(bearer_auth)
     api = tweepy.API(auth, wait_on_rate_limit=True)
 
     # Open/Create a file to append dataß
