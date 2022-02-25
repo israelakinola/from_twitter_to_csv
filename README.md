@@ -7,12 +7,11 @@ FROM TWITTER TO CSV
 
 ## 🛠️ Description
 
-A simple web app that fetch Tweets and its (like, retweets) based on users keyword input and the amount they want.  It then save them to a CSV file, that can be download by users.
+A simple (python flask) web app that fetch Tweets and it (likes, retweets) count based on users keyword input and the amount they want to fetch. It then save the tweets to a CSV file, that can be downloaded.
 
 ## ⚙️ Languages or Frameworks Used
 <!--Remove the below lines and add yours -->
 PYTHON (FLASK)
-JAVASCRIPT
 CSS Bootsrtaps
 
 

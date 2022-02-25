@@ -7,7 +7,7 @@ import csv
 app = Flask(__name__)
 
 ### input your credentials here
-bearer_token = ''
+bearer_token = ""
 
 @app.route("/", methods=['POST', 'GET'])
 def index():
@@ -18,13 +18,13 @@ def index():
         HTML Template
 
     """
-    if request.method == 'POST' and request.form['hashtag'] != '' :
+    if request.method == 'POST' and request.form['keyword'] != '' :
         try:
-            fetch(request.form['hashtag'], int(request.form['qty']))
+            fetch(request.form['keyword'], int(request.form['qty']))
         except:
             pass
         finally:
-            return render_template("index.html", hashtag = request.form['hashtag'], fetched = True)
+            return render_template("index.html", keyword= request.form['keyword'], fetched = True)
     return render_template("index.html")
 
 
