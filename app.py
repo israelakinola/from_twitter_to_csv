@@ -50,7 +50,7 @@ def fetch(keyword, qty):
     csvWriter = csv.writer(csvFile)
     csvWriter.writerow(['Created at', 'Username', 'Tweets', 'Retweet Count' 'Likes'])
     for tweet in tweepy.Cursor(api.search_tweets,q=keyword,
-                            lang="en").items(qty):
+                            lang="en").items(int(qty)):
                             csvWriter.writerow([tweet.created_at, tweet.user.screen_name, tweet.text.encode('utf-8'), tweet.retweet_count, tweet.favorite_count])
 
 @app.route('/download', methods=['GET', 'POST'])
