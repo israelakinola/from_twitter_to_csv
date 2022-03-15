@@ -7,7 +7,7 @@ import csv
 app = Flask(__name__)
 app.secret_key = "auoesh.bouoastuh.43,uoausoehuosth3ououea.auoub!"
 ### input your credentials here
-bearer_token = "AAAAAAAAAAAAAAAAAAAAAO2jZAEAAAAADsaC86PsPGWfiFLidgGsyl55kQw%3Dw62k3WJy7yVb1LPqUTkwGlXy4oFGw5JRLFKf1WZGNt6vVs6AvJ"
+bearer_token = ""
 
 @app.route("/", methods=['POST', 'GET'])
 def index():
