@@ -1,13 +1,13 @@
 
-from flask import Flask, request, render_template, send_file
+from flask import Flask, redirect, request, render_template, send_file,flash, url_for
 import tweepy
 import csv
 
 
 app = Flask(__name__)
-
+app.secret_key = "auoesh.bouoastuh.43,uoausoehuosth3ououea.auoub!"
 ### input your credentials here
-bearer_token = ""
+bearer_token = "AAAAAAAAAAAAAAAAAAAAAO2jZAEAAAAADsaC86PsPGWfiFLidgGsyl55kQw%3Dw62k3WJy7yVb1LPqUTkwGlXy4oFGw5JRLFKf1WZGNt6vVs6AvJ"
 
 @app.route("/", methods=['POST', 'GET'])
 def index():
@@ -18,13 +18,23 @@ def index():
         HTML Template
 
     """
-    if request.method == 'POST' and request.form['keyword'] != '' :
+    if request.method == 'POST' and request.form['keyword'] != '':
+        qty = request.form['qty']
         try:
-            fetch(request.form['keyword'], int(request.form['qty']))
-        except:
-            pass
-        finally:
-            return render_template("index.html", keyword= request.form['keyword'], fetched = True)
+            qty = int(qty)
+        except ValueError:
+            flash("Qty is not a valid number", "error")
+            return redirect(url_for('index'))
+        if (qty > 0 ):
+            try:
+                fetch(request.form['keyword'], qty)
+            except:
+                flash("Could not fetch tweets", "error")
+        else:
+            flash("Qty must be greater than Zero", "error")
+            return redirect(url_for('index'))
+        
+        return render_template("index.html", keyword= request.form['keyword'], fetched = True)
     return render_template("index.html")
 
 
@@ -50,7 +60,7 @@ def fetch(keyword, qty):
     csvWriter = csv.writer(csvFile)
     csvWriter.writerow(['Created at', 'Username', 'Tweets', 'Retweet Count' 'Likes'])
     for tweet in tweepy.Cursor(api.search_tweets,q=keyword,
-                            lang="en").items(int(qty)):
+                            lang="en").items(qty):
                             csvWriter.writerow([tweet.created_at, tweet.user.screen_name, tweet.text.encode('utf-8'), tweet.retweet_count, tweet.favorite_count])
 
 @app.route('/download', methods=['GET', 'POST'])

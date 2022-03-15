@@ -10,6 +10,15 @@
 </head>
 <body>
     <div class="container">
+         <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="notification {{ category }}">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
         <section class="fetch">
             <h3 class="mb-3">Fetch tweets and save to CSV</h3>
             <form action="/" method="POST">
