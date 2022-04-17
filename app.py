@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = "auoesh.bouoastuh.43,uoausoehuosth3ououea.auoub!"
 
 #Input your Twitter Bearer Token here
-bearer_token = "AAAAAAAAAAAAAAAAAAAAAO2jZAEAAAAAUo6tWUW5o8WVsSS5g6PZhHHW1Tc%3DerjWb6ehP5EAeD6diK8qSaW9HKdoRtia55RLvOab7n3Rg6mBAF"
+bearer_token = ""
 
 @app.route("/", methods=['POST', 'GET'])
 def index():
