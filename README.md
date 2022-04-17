@@ -34,7 +34,7 @@ Visit Twitter Developer Account Website and click on Create app to create a Twit
     2. To execute the script run the following command
 
         ```python
-        python fetch_store_tweet.py 
+        python app.py 
         ```
 
     After successful execution of the script you should see the 'URL localhost link to the website' outputed in command prompt/terminal
