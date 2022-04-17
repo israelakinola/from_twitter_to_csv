@@ -4,10 +4,12 @@ import tweepy
 import csv
 
 
+
 app = Flask(__name__)
 app.secret_key = "auoesh.bouoastuh.43,uoausoehuosth3ououea.auoub!"
-### input your credentials here
-bearer_token = ""
+
+#Input your Twitter Bearer Token here
+bearer_token = "AAAAAAAAAAAAAAAAAAAAAO2jZAEAAAAAUo6tWUW5o8WVsSS5g6PZhHHW1Tc%3DerjWb6ehP5EAeD6diK8qSaW9HKdoRtia55RLvOab7n3Rg6mBAF"
 
 @app.route("/", methods=['POST', 'GET'])
 def index():
@@ -18,50 +20,83 @@ def index():
         HTML Template
 
     """
-    if request.method == 'POST' and request.form['keyword'] != '':
-        qty = request.form['qty']
-        try:
-            qty = int(qty)
-        except ValueError:
-            flash("Qty is not a valid number", "error")
-            return redirect(url_for('index'))
-        if (qty > 0 ):
-            try:
-                fetch(request.form['keyword'], qty)
-            except:
-                flash("Could not fetch tweets", "error")
-        else:
-            flash("Qty must be greater than Zero", "error")
-            return redirect(url_for('index'))
-        
+    if request.method == 'POST' and request.form['keyword'] != '': 
+        #Fetch tweets
+        tweets = fetch(request.form['keyword'], validate_qty(request.form['qty']))
+        #save to CSV
+        save_to_csv(tweets)      
         return render_template("index.html", keyword= request.form['keyword'], fetched = True)
     return render_template("index.html")
+
+def validate_qty(qty):
+    """
+        This function validate the Quantity of tweets a user inputed
+    Arguments
+    _________
+    qty: <int> Number of tweets users want to fetch. 
+
+    Return
+    ______
+         qty: <int> Number of tweets users want to fetch. Default is 10
+    """
+    converted = False
+    try:
+        qty = int(qty)
+    except ValueError:
+        pass
+    else:
+        converted= True
+
+    #Check if qty was converted to 
+    if converted:
+        #check if int is greater than zero
+        if qty > 0:
+            return qty 
+    #Set qty to a default 0f 10 and return qty
+    qty = 10
+    return qty
 
 
 def fetch(keyword, qty):
     """
-        This function fetch the tweets and write it to a CSV file.
+        This function fetch the tweets and returns the tweets object
 
     Arguments
     _________
         keyword <String> : Users keyword that need to be fetched
         qty <Int> : User inputed amount of tweets that need to be fetched
-        
-
+    
+    Return
+    ______
+        Tweets Objects
 
     """
     auth = tweepy.OAuth2BearerHandler(bearer_token)
     api = tweepy.API(auth, wait_on_rate_limit=True)
 
-    # Open/Create a file to append dataß
-    csvFile = open('tweets.csv', 'w')
 
-    #Use csv Writer
+    return tweepy.Cursor(api.search_tweets,q=keyword,
+                            lang="en").items(qty)
+    
+def save_to_csv(tweets):
+    """
+        This function loop through tweets objects and write them to a CSV file
+
+    Arguments
+    _________
+        tweets <List> : Tweets objects
+
+    """
+
+     #Open/Create a file to append data
+    csvFile = open('tweets.csv', 'w')
+     #Use csv Writer
     csvWriter = csv.writer(csvFile)
     csvWriter.writerow(['Created at', 'Username', 'Tweets', 'Retweet Count' 'Likes'])
-    for tweet in tweepy.Cursor(api.search_tweets,q=keyword,
-                            lang="en").items(qty):
-                            csvWriter.writerow([tweet.created_at, tweet.user.screen_name, tweet.text.encode('utf-8'), tweet.retweet_count, tweet.favorite_count])
+    for tweet in tweets:
+        csvWriter.writerow([tweet.created_at, tweet.user.screen_name, tweet.text.encode('utf-8'), tweet.retweet_count, tweet.favorite_count])
+
+
 
 @app.route('/download', methods=['GET', 'POST'])
 def download():    
