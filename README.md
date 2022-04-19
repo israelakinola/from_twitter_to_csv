@@ -2,17 +2,24 @@
 ![Star Badge](https://img.shields.io/static/v1?label=%F0%9F%8C%9F&message=If%20Useful&style=style=flat&color=BC4E99)
 ![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)
 
-# Script Title
+# Script Title & Description
 FROM TWITTER TO CSV
 
-## 🛠️ Description
-
 A simple (python flask) web app that fetches Tweets and it (likes, retweets) count based on users' keyword input and the amount they want to fetch. It then saves the tweets to a CSV file, that can be downloaded.
+
 
 ## ⚙️ Languages or Frameworks Used
 <!--Remove the below lines and add yours -->
 PYTHON (FLASK)
 CSS Bootsrtaps
+
+
+## 🛠️ Features
+1. Users can fetch any specified number of tweets and their data from Twitter based on a specific keyword and amount in form fields.
+
+2. Users will get a CSV file document returned to them for download when they click on the fetch button. The CSV file contains those tweets’ data categorized in columns.
+
+
 
 
 ## 🌟 How to run
