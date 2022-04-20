@@ -9,16 +9,15 @@ A simple (python flask) web app that fetches Tweets and it (likes, retweets) cou
 
 
 ## ⚙️ Languages or Frameworks Used
-<!--Remove the below lines and add yours -->
-PYTHON (FLASK)
-CSS Bootsrtaps
+* PYTHON (FLASK)
+* CSS Bootsrtaps
+* HTML (JINJA TEMPLATE)
 
 
 ## 🛠️ Features
-1. Users can fetch any specified number of tweets and their data from Twitter based on a specific keyword and amount in form fields.
+* Users can fetch any specified number of tweets and their data from Twitter based on a specific keyword and amount in form fields.
 
-2. Users will get a CSV file document returned to them for download when they click on the fetch button. The CSV file contains those tweets’ data categorized in columns.
-
+* Users will get a CSV file document returned to them for download when they click on the fetch button. The CSV file contains those tweets’ data categorized in columns.
 
 
 
