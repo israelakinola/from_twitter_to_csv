@@ -22,10 +22,11 @@ def index():
     """
     if request.method == 'POST' and request.form['keyword'] != '': 
         #Fetch tweets
-        tweets = fetch(request.form['keyword'], validate_qty(request.form['qty']))
-        #save to CSV
-        save_to_csv(tweets)      
-        return render_template("index.html", keyword= request.form['keyword'], fetched = True)
+        if(validate_keyword):
+            tweets = fetch(request.form['keyword'], validate_qty(request.form['qty']))
+            #save to CSV
+            save_to_csv(tweets)      
+            return render_template("index.html", keyword= request.form['keyword'], fetched = True)
     return render_template("index.html")
 
 def validate_qty(qty):
@@ -55,6 +56,22 @@ def validate_qty(qty):
     #Set qty to a default 0f 10 and return qty
     qty = 10
     return qty
+
+def validate_keyword(keyword):
+    """
+        This function validate the Keyword of tweets a user inputed
+    Arguments
+    _________
+    keyword: <int> Number of tweets users want to fetch. 
+
+    Return
+    ______
+         Bool: <bool> True represent keyword was validated, False represent not validated
+    """
+    #check if keyword length is greater than zero
+    if(len(keyword))<=0:
+        return False
+    return True
 
 
 def fetch(keyword, qty):

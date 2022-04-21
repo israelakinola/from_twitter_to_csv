@@ -23,11 +23,11 @@
             <h3 class="mb-3">Fetch tweets and save to CSV</h3>
             <form action="/" method="POST">
                 <div class="form-group">
-                    <input type="text" name ="keyword" class="form-control username" placeholder="Enter Keyword">
+                    <input type="text" name ="keyword" class="form-control keyword" placeholder="Enter Keyword">
                     <input type="text" name ="qty" class="form-control qty" placeholder="Number of Tweets to fetch">
                     <small id="emailHelp" class="form-text text-muted">10 is the default value</small>
                 </div>
-                <input type="submit" class="btn btn-primary" value="Fetch and Save to CSV">
+                <input type="submit" class="btn btn-primary fetch" value="Fetch and Save to CSV">
             </form>
             <div class="fetched py-4">
                 {% if fetched == True %}

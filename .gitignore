@@ -1,4 +1,6 @@
 notes.txt
 tweets.csv
 .notes
+*.pyc
 **/__pycache__
+.venvsou
