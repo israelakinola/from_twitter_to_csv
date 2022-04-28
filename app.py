@@ -2,6 +2,7 @@
 from flask import Flask, redirect, request, render_template, send_file,flash, url_for
 import tweepy
 import csv
+from os import getcwd
 
 
 
@@ -10,6 +11,8 @@ app.secret_key = "auoesh.bouoastuh.43,uoausoehuosth3ououea.auoub!"
 
 #Input your Twitter Bearer Token here
 bearer_token = ""
+
+download_file_path = f'{getcwd()}/downloads'
 
 @app.route("/", methods=['POST', 'GET'])
 def index():
@@ -25,7 +28,7 @@ def index():
         if(validate_keyword):
             tweets = fetch(request.form['keyword'], validate_qty(request.form['qty']))
             #save to CSV
-            save_to_csv(tweets)      
+            save_to_csv(tweets, request.form['keyword'])      
             return render_template("index.html", keyword= request.form['keyword'], fetched = True)
     return render_template("index.html")
 
@@ -95,7 +98,7 @@ def fetch(keyword, qty):
     return tweepy.Cursor(api.search_tweets,q=keyword,
                             lang="en").items(qty)
     
-def save_to_csv(tweets):
+def save_to_csv(tweets, keyowrd_as_file_name):
     """
         This function loop through tweets objects and write them to a CSV file
 
@@ -104,9 +107,9 @@ def save_to_csv(tweets):
         tweets <List> : Tweets objects
 
     """
-
+    cwd = getcwd()
      #Open/Create a file to append data
-    csvFile = open('tweets.csv', 'w')
+    csvFile = open(f'{download_file_path}/{keyowrd_as_file_name}.csv', 'w')
      #Use csv Writer
     csvWriter = csv.writer(csvFile)
     csvWriter.writerow(['Created at', 'Username', 'Tweets', 'Retweet Count' 'Likes'])
@@ -115,8 +118,8 @@ def save_to_csv(tweets):
 
 
 
-@app.route('/download', methods=['GET', 'POST'])
-def download():    
+@app.route('/downloads/<keyowrd_as_file_name>', methods=['GET', 'POST'])
+def download(keyowrd_as_file_name):    
     """
         This function handle the CSV File download
 
@@ -124,7 +127,7 @@ def download():
     _________
         File Path <String>
     """
-    path = "/Users/Kelv_leo/Desktop/fetchtocsv/tweets.csv"
+    path = f"{download_file_path}/{keyowrd_as_file_name}.csv"
     return send_file(path, as_attachment=True)
 
 
