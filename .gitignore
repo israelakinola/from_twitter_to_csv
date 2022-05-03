@@ -4,3 +4,4 @@ tweets.csv
 *.pyc
 **/__pycache__
 .venvsou
+downloads
