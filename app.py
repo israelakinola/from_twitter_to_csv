@@ -112,7 +112,7 @@ def save_to_csv(tweets, keyowrd_as_file_name):
     csvFile = open(f'{download_file_path}/{keyowrd_as_file_name}.csv', 'w')
      #Use csv Writer
     csvWriter = csv.writer(csvFile)
-    csvWriter.writerow(['Created at', 'Username', 'Tweets', 'Retweet Count' 'Likes'])
+    csvWriter.writerow(['Created at', 'Username', 'Tweets', 'Retweet Count', 'Likes'])
     for tweet in tweets:
         csvWriter.writerow([tweet.created_at, tweet.user.screen_name, tweet.text.encode('utf-8'), tweet.retweet_count, tweet.favorite_count])
 
